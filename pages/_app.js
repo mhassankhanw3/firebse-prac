@@ -1,5 +1,11 @@
-import '@/styles/globals.css'
+import { MainContextProvider } from "../context/Main";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, router, pageProps }) {
+  return (
+    <MainContextProvider router={router}>
+      <Component {...pageProps} />
+    </MainContextProvider>
+  );
 }
+
+export default MyApp;
