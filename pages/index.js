@@ -3,6 +3,7 @@ import { useMainContext } from "@/context/Main";
 import { Button, Checkbox, Form, Input, Typography } from "antd";
 import { useState } from "react";
 import Link from "next/link";
+import SuccessAlert from "@/components/SuccessAlert";
 const { Title } = Typography;
 
 const onFinish = (values) => {
@@ -17,9 +18,10 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { func } = useMainContext();
+  const { func, loading, setLoading } = useMainContext();
   const submitHandle = () => {
     func.newUser(email, password);
+    setLoading(true);
   };
   return (
     <>
@@ -92,6 +94,7 @@ export default function Home() {
           </Button>
         </Form.Item>
       </Form>
+      <SuccessAlert />
     </>
   );
 }

@@ -6,6 +6,10 @@ const MyContext = createContext();
 export const useMainContext = () => useContext(MyContext);
 export const MainContextProvider = (props) => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const newUser = async (email, password) => {
     await firebase
       .auth()
@@ -31,9 +35,11 @@ export const MainContextProvider = (props) => {
         // Signed in
         console.log(userCredential, "users");
         const user = userCredential.user;
+        setSuccess(true);
         // ...
       })
       .catch((error) => {
+        setError(true);
         console.log(error, "error");
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -45,6 +51,10 @@ export const MainContextProvider = (props) => {
   return (
     <MyContext.Provider
       value={{
+        error: error,
+        success: success,
+        loading: loading,
+        setLoading: setLoading,
         func: {
           newUser,
           signIn,
