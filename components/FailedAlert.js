@@ -1,38 +1,37 @@
 import React from "react";
 
-export default function SuccessAlert() {
+export default function FailedAlert({ msg }) {
   return (
     <>
       <div
         style={{
-          backgroundColor: "#f0fdf4",
-          padding: "10px 30px",
-          width: "200px",
+          backgroundColor: "#fef2f2",
+          padding: "20px 20px",
+          width: "500px",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           borderRadius: "10px",
-          margin: "20px auto 0px auto",
+          margin: "40px auto 0px auto",
         }}
         role="alert"
       >
         <div
           style={{
             borderRadius: "50px",
-            height: "30px",
+            height: "27px",
             width: "30px",
             display: "flex",
+            flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#dcfce7",
-            color: "#134e4a",
+            backgroundColor: "#fecaca",
+            color: "#111827",
             fontSize: "18px",
           }}
         >
-          i
+          !
         </div>
-        <div style={{ marginLeft: "20px" }}>
-          <p style={{ color: "black" }}>login succussfully! 😊</p>
-        </div>
+        <div style={{ marginLeft: "10px", color: "#991b1b" }}>{msg}</div>
       </div>
     </>
   );

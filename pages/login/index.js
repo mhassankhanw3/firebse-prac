@@ -9,17 +9,12 @@ import {
 } from "antd";
 import { PoweroffOutlined } from "@ant-design/icons";
 // import { NotificationPlacement } from "antd/es/notification/interface";
-import {
-  BorderBottomOutlined,
-  BorderTopOutlined,
-  RadiusBottomleftOutlined,
-  RadiusBottomrightOutlined,
-  RadiusUpleftOutlined,
-  RadiusUprightOutlined,
-} from "@ant-design/icons";
+import { useRouter } from "next/router";
+import { Spin } from "antd";
 import { useMainContext } from "../../context/Main";
 import { useState } from "react";
 import SuccessAlert from "@/components/SuccessAlert";
+import FailedAlert from "@/components/FailedAlert";
 const { Title } = Typography;
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
@@ -32,51 +27,45 @@ export default function Login() {
   const [password, setPassword] = useState("");
   // const [error, setError] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [loadings, setLoadings] = useState([]);
-  const { func, error, success } = useMainContext();
+  // const [loadings, setLoadings] = useState([]);
+  const { func, error, success, setSuccess, loading, setLoading } =
+    useMainContext();
   const submitHandle = (e) => {
-    // e.preventDefault();
     func.signIn(email, password);
+    setLoading(false);
   };
 
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 500);
-  };
+  // const enterLoading = (index) => {
+  //   setLoadings((prevLoadings) => {
+  //     const newLoadings = [...prevLoadings];
+  //     newLoadings[index] = true;
+  //     return newLoadings;
+  //   });
+  //   setTimeout(() => {
+  //     setLoadings((prevLoadings) => {
+  //       const newLoadings = [...prevLoadings];
+  //       newLoadings[index] = false;
+  //       return newLoadings;
+  //     });
+  //   }, 500);
+  // };
+  const router = useRouter();
   return (
     <>
-      <div>{error ? "try Again" : ""}</div>
-
-      {/* <SuccessAlert /> */}
       <div
         style={{
-          margin: "-8px ",
+          margin: "-18px -8px",
           backgroundColor: "#f3f4f6",
-          height: "100vh",
-          // width: "100%",
-          padding: "40px",
+          height: "100%",
+          padding: "10px",
         }}
       >
         <Form
-          // name="basic"
-          // wrapperCol={{
-          //   span: 10,
-          // }}
           style={{
             maxWidth: 600,
-            margin: "100px auto 50px auto",
+            margin: "170px auto 50px auto",
             backgroundColor: "white",
-            padding: "10px 20px",
+            padding: "10px 20px 50px 20px",
             borderRadius: "14px",
             color: "white",
             boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
@@ -86,7 +75,6 @@ export default function Login() {
           }}
           onFinish={submitHandle}
           onFinishFailed={onFinishFailed}
-          // autoComplete="on"
         >
           <Title
             style={{
@@ -157,7 +145,7 @@ export default function Login() {
             />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             name="remember"
             valuePropName="checked"
             style={{
@@ -166,12 +154,9 @@ export default function Login() {
             }}
           >
             <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item>
             <Button
-              loading={loadings[1]}
-              onClick={() => enterLoading(1)}
-              // onClick={submitHandle}
               type="primary"
               htmlType="submit"
               style={{
@@ -188,16 +173,23 @@ export default function Login() {
             >
               Sign In
             </Button>
-            {/* <Button
-              type="primary"
-              // icon={<PoweroffOutlined />}
-              loading={loadings[1]}
-              onClick={() => enterLoading(1)}
-            >
-              Click me!
-            </Button> */}
-            <div>{success ? <SuccessAlert /> : ""}</div>
           </Form.Item>
+          <div>
+            {loading ? (
+              <div
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <Spin size="large" />
+              </div>
+            ) : (
+              // "hassan"
+              <div>{error ? <FailedAlert msg={error} /> : ""}</div>
+            )}
+          </div>
+
+          {/* <SuccessAlert /> */}
         </Form>
       </div>
     </>
