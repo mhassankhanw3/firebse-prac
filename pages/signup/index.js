@@ -25,75 +25,84 @@ export default function signup() {
   };
   return (
     <>
-      <Title>Sign Up</Title>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        style={{
-          maxWidth: 600,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={submitHandle}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}
-        >
-          <Input value={email} onChange={(e) => setEmail(e.target.value)} />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{
-            offset: 8,
-            span: 16,
+      <div className="bg-gray-200  w-[100%] h-screen py-[10px] px-[20px] ">
+        <h1 className="text-center mt-[50px] text-gray-700  font-bold text-[40px] ">
+          Sign Up
+        </h1>
+        <Form
+          className="border mt-[10px] bg-white border-none text-white rounded-[14px]  shadow-lg px-[40px] pt-[45px] pb-[20px] w-[550px] mx-auto "
+          initialValues={{
+            remember: true,
           }}
+          onFinish={submitHandle}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Enter your user name"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            className="text-center"
+            name="remember"
+            valuePropName="checked"
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+          <Form.Item className="text-center">
+            <Button
+              className="bg-blue-600 py-[18px] flex items-center justify-center w-[100%] text-white mx-auto"
+              htmlType="submit"
+              type="primary"
+            >
+              Sign Up
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
       {/* <SuccessAlert /> */}
     </>
   );

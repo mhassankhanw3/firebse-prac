@@ -1,12 +1,20 @@
 import { useState, createContext, useContext } from "react";
 import firebase from "../firebase/config";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { App } from "antd";
 import { useRouter } from "next/router";
 
 const MyContext = createContext();
 export const useMainContext = () => useContext(MyContext);
 export const MainContextProvider = (props) => {
+  const { message, modal, notification } = App.useApp();
   const [email, setEmail] = useState("");
+  const [logout, setLogout] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -60,6 +68,21 @@ export const MainContextProvider = (props) => {
         // ..
       });
   };
+  const logOut = async (email, password) => {
+    const auth = getAuth();
+    signOut(auth)
+      .then((res) => {
+        console.log(res);
+        // Sign-out successful.
+        setLogout(message.success("Loagout"));
+        router.push("/signup");
+      })
+      .catch((error) => {
+        // An error happened.
+        setLogout(false);
+        router.push("/");
+      });
+  };
   const router = useRouter();
   const { children } = props;
   return (
@@ -70,9 +93,12 @@ export const MainContextProvider = (props) => {
         setSuccess: setSuccess,
         loading: loading,
         setLoading: setLoading,
+        logout: logout,
+        setLogout: setLogout,
         func: {
           newUser,
           signIn,
+          logOut,
         },
       }}
     >

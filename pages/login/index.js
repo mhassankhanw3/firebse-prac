@@ -27,76 +27,33 @@ export default function Login() {
   const [password, setPassword] = useState("");
   // const [error, setError] = useState(false);
   const [showError, setShowError] = useState(false);
-  // const [loadings, setLoadings] = useState([]);
   const { func, error, success, setSuccess, loading, setLoading } =
     useMainContext();
   const submitHandle = (e) => {
+    // setLoading(false);
     func.signIn(email, password);
-    setLoading(false);
+    // setLoading(false);
+    // setLoading(true);
   };
 
-  // const enterLoading = (index) => {
-  //   setLoadings((prevLoadings) => {
-  //     const newLoadings = [...prevLoadings];
-  //     newLoadings[index] = true;
-  //     return newLoadings;
-  //   });
-  //   setTimeout(() => {
-  //     setLoadings((prevLoadings) => {
-  //       const newLoadings = [...prevLoadings];
-  //       newLoadings[index] = false;
-  //       return newLoadings;
-  //     });
-  //   }, 500);
-  // };
   const router = useRouter();
   return (
     <>
-      <div
-        style={{
-          margin: "-18px -8px",
-          backgroundColor: "#f3f4f6",
-          height: "100%",
-          padding: "10px",
-        }}
-      >
+      <div className="h-screen w-[100%] bg-[#f3f4f6] p-[10px] ">
         <Form
-          style={{
-            maxWidth: 600,
-            margin: "170px auto 50px auto",
-            backgroundColor: "white",
-            padding: "10px 20px 50px 20px",
-            borderRadius: "14px",
-            color: "white",
-            boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
-          }}
+          className="max-w-[600px] bg-white rounded-[14px] mt-[170px] mb-[50px] mx-auto py-[35px] px-[50px] text-white shadow-lg "
           initialValues={{
             remember: true,
           }}
           onFinish={submitHandle}
           onFinishFailed={onFinishFailed}
         >
-          <Title
-            style={{
-              color: "#075985",
-              textAlign: "center",
-              fontFamily: "inherit",
-            }}
-          >
+          <h1 className="text-[#075985] text-center text-[32px] font-semibold ">
             Welcome Back
-          </Title>
-          <Title
-            level={5}
-            style={{
-              margin: "-10px auto 10px auto",
-              width: "100%",
-              textAlign: "center",
-              color: "#6b7280",
-              fontWeight: "400",
-            }}
-          >
+          </h1>
+          <p className="mx-auto mb-[40px] w-[100%] text-center text-[#6b7280] font-medium ">
             Enter your credentials to access your account
-          </Title>
+          </p>
           <Form.Item
             // label="Email"
             name="email"
@@ -108,13 +65,6 @@ export default function Login() {
             ]}
           >
             <Input
-              style={{
-                width: "400px",
-                margin: "30px auto 0px auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
               placeholder=" Enter Your Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -132,13 +82,6 @@ export default function Login() {
             ]}
           >
             <Input.Password
-              style={{
-                width: "400px",
-                margin: "0px auto 0px auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -155,21 +98,12 @@ export default function Login() {
           >
             <Checkbox>Remember me</Checkbox>
           </Form.Item> */}
-          <Form.Item>
+          <Form.Item className="text-center">
             <Button
+              // onClick={(e) => setLoading(false)}
+              className="bg-blue-600 py-[20px] w-[100%] text-[16px] flex items-center justify-center mt-[10px] mx-auto"
               type="primary"
               htmlType="submit"
-              style={{
-                padding: "20px 24px",
-                fontSize: "16px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                placeItems: "center",
-                margin: "10px auto 0px auto",
-                textAlign: "center",
-                width: "400px",
-              }}
             >
               Sign In
             </Button>
@@ -184,9 +118,9 @@ export default function Login() {
                 <Spin size="large" />
               </div>
             ) : (
-              // "hassan"
-              <div>{error ? <FailedAlert msg={error} /> : ""}</div>
+              ""
             )}
+            <div>{error ? <FailedAlert msg={error} /> : ""}</div>
           </div>
 
           {/* <SuccessAlert /> */}
@@ -195,3 +129,4 @@ export default function Login() {
     </>
   );
 }
+// https://github.com/mhassankhanw3/firebse-prac.git
