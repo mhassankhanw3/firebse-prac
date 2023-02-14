@@ -1,6 +1,6 @@
 import { Inter } from "@next/font/google";
 import { useMainContext } from "../../context/Main";
-import { Button, Checkbox, Form, Input, Typography } from "antd";
+import { Button, Checkbox, Form, Input, Typography, Spin } from "antd";
 import { useState } from "react";
 import Link from "next/link";
 // import SuccessAlert from "@/components/SuccessAlert";
@@ -21,16 +21,12 @@ export default function signup() {
   const { func, loading, setLoading } = useMainContext();
   const submitHandle = () => {
     func.newUser(email, password);
-    setLoading(true);
   };
   return (
     <>
-      <div className="bg-gray-200  w-[100%] h-screen py-[10px] px-[20px] ">
-        <h1 className="text-center mt-[50px] text-gray-700  font-bold text-[40px] ">
-          Sign Up
-        </h1>
+      <div className="bg-gray-200  w-[100%] h-screen flex flex-col items-center justify-center ">
         <Form
-          className="border mt-[10px] bg-white border-none text-white rounded-[14px]  shadow-lg px-[40px] pt-[45px] pb-[20px] w-[550px] mx-auto "
+          className="border mt-[10px] bg-white border-none text-white rounded-[14px] shadow-lg px-[40px] pt-[35px] pb-[4px] w-[550px] mx-auto"
           initialValues={{
             remember: true,
           }}
@@ -38,6 +34,12 @@ export default function signup() {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <h1 className="text-[#075985] text-center text-[32px] font-semibold">
+            Sign Up
+          </h1>
+          <p className="mx-auto mb-[10px] w-[100%] text-center text-[#6b7280] font-medium ">
+            Create your account
+          </p>
           <Form.Item
             name="username"
             rules={[
@@ -101,6 +103,31 @@ export default function signup() {
               Sign Up
             </Button>
           </Form.Item>
+          <Form.Item className="flex flex-row justify-center items-center">
+            <span className="text-[#71717a]">Already a user?</span>
+            <Link href="/login" legacyBehavior>
+              <a
+                className="ml-2 underline-offset-1 underline text-[#2563eb] hover:text-[#60a5fa] "
+                href="/login"
+              >
+                Sign in Here
+              </a>
+            </Link>
+          </Form.Item>
+          <div>
+            {loading ? (
+              <div
+                className="pb-[20px]"
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <Spin size="" />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </Form>
       </div>
       {/* <SuccessAlert /> */}

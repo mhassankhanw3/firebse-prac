@@ -6,11 +6,12 @@ import {
   Typography,
   Divider,
   notification,
+  Spin,
 } from "antd";
+import Link from "next/link";
 import { PoweroffOutlined } from "@ant-design/icons";
 // import { NotificationPlacement } from "antd/es/notification/interface";
 import { useRouter } from "next/router";
-import { Spin } from "antd";
 import { useMainContext } from "../../context/Main";
 import { useState } from "react";
 import SuccessAlert from "@/components/SuccessAlert";
@@ -25,23 +26,18 @@ const onFinish = (values) => {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState(false);
   const [showError, setShowError] = useState(false);
-  const { func, error, success, setSuccess, loading, setLoading } =
-    useMainContext();
+  const { func, error, success, loading } = useMainContext();
   const submitHandle = (e) => {
-    // setLoading(false);
     func.signIn(email, password);
-    // setLoading(false);
-    // setLoading(true);
   };
 
   const router = useRouter();
   return (
     <>
-      <div className="h-screen w-[100%] bg-[#f3f4f6] p-[10px] ">
+      <div className="h-screen w-full bg-[#f3f4f6] flex flex-col justify-center items-center">
         <Form
-          className="max-w-[600px] bg-white rounded-[14px] mt-[170px] mb-[50px] mx-auto py-[35px] px-[50px] text-white shadow-lg "
+          className=" w-[550px] bg-white rounded-[14px] my-auto mx-auto px-[50px] pt-[45px] pb-[4px] text-white shadow-lg "
           initialValues={{
             remember: true,
           }}
@@ -49,7 +45,7 @@ export default function Login() {
           onFinishFailed={onFinishFailed}
         >
           <h1 className="text-[#075985] text-center text-[32px] font-semibold ">
-            Welcome Back
+            Login
           </h1>
           <p className="mx-auto mb-[40px] w-[100%] text-center text-[#6b7280] font-medium ">
             Enter your credentials to access your account
@@ -88,16 +84,6 @@ export default function Login() {
             />
           </Form.Item>
 
-          {/* <Form.Item
-            name="remember"
-            valuePropName="checked"
-            style={{
-              maxWidth: "130px",
-              margin: "auto",
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
           <Form.Item className="text-center">
             <Button
               // onClick={(e) => setLoading(false)}
@@ -107,6 +93,17 @@ export default function Login() {
             >
               Sign In
             </Button>
+            <Form.Item className="mt-[20px] flex flex-row justify-center items-center">
+              <span className="text-[#71717a]">do not have an account?</span>
+              <Link href="/signup" legacyBehavior>
+                <a
+                  className="ml-2 underline-offset-1 underline text-[#2563eb] hover:text-[#60a5fa] "
+                  href="/login"
+                >
+                  Sign up Here
+                </a>
+              </Link>
+            </Form.Item>
           </Form.Item>
           <div>
             {loading ? (
@@ -115,15 +112,14 @@ export default function Login() {
                   textAlign: "center",
                 }}
               >
-                <Spin size="large" />
+                <Spin />
               </div>
             ) : (
               ""
             )}
             <div>{error ? <FailedAlert msg={error} /> : ""}</div>
+            <div>{success ? "" : ""}</div>
           </div>
-
-          {/* <SuccessAlert /> */}
         </Form>
       </div>
     </>
